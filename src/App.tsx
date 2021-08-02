@@ -1,53 +1,24 @@
 import { useState } from "react"
 import "./App.css"
-import { usePeerJSConnection } from "./usePeerJSConnection"
+import { PeerJS } from "./PeerJS"
+import { SimplePeer } from "./SimplePeer"
 
 function App() {
-  const {
-    userOnePeerId,
-    connect,
-    host,
-    getPeerConnection,
-  } = usePeerJSConnection()
-
-  const [connectToId, setConnectToId] = useState("")
-
-  const handlePeerInput = (event: any) => {
-    setConnectToId(event.target.value)
-  }
+  const [isPeerJS, togglePeerFramework] = useState(true)
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1> Hello to my PeerJS Demo! </h1>
-
         <button
           onClick={() => {
-            host(getPeerConnection())
+            togglePeerFramework(!isPeerJS)
           }}
         >
-          Host!
+          Toggle Peer Framework!
         </button>
 
-        <span>Your Connection Id: {userOnePeerId}</span>
-
-        <hr></hr>
-
-        <div>
-          <input
-            type="text"
-            value={connectToId}
-            onChange={handlePeerInput}
-          ></input>
-        </div>
-
-        <button
-          onClick={() => {
-            connect(getPeerConnection(), connectToId)
-          }}
-        >
-          Connect!
-        </button>
+        {isPeerJS && <PeerJS />}
+        {!isPeerJS && <SimplePeer />}
       </header>
     </div>
   )
