@@ -1,18 +1,19 @@
+import { useState } from "react"
 import "./App.css"
 import { usePeerJSConnection } from "./usePeerJSConnection"
 
 function App() {
   const {
     userOnePeerId,
-    connectToPeerId,
     connect,
     host,
     getPeerConnection,
-    setConnectToPeerId,
   } = usePeerJSConnection()
 
+  const [connectToId, setConnectToId] = useState("")
+
   const handlePeerInput = (event: any) => {
-    setConnectToPeerId(event.target.value)
+    setConnectToId(event.target.value)
   }
 
   return (
@@ -35,14 +36,14 @@ function App() {
         <div>
           <input
             type="text"
-            value={connectToPeerId}
+            value={connectToId}
             onChange={handlePeerInput}
           ></input>
         </div>
 
         <button
           onClick={() => {
-            connect(getPeerConnection())
+            connect(getPeerConnection(), connectToId)
           }}
         >
           Connect!

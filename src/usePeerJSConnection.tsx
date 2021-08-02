@@ -4,20 +4,18 @@ import { useState } from "react"
 export const usePeerJSConnection = () => {
   const [userOnePeerId, setUserOnePeerId] = useState("")
 
-  const [connectToPeerId, setConnectToPeerId] = useState("")
-
-  const connect = (peer: Peer) => {
+  const connect = (peer: Peer, idToConnect: string) => {
     peer.on("open", id => {
-      console.log("Hi I'm user 2 with Id: " + id)
+      console.log("Hi I'm a user with Id: " + id)
 
-      console.log("I will now connect " + userOnePeerId)
-      peer.connect(connectToPeerId)
+      console.log("I will now connect to " + idToConnect)
+      peer.connect(idToConnect)
     })
   }
 
   const host = (peer: Peer) => {
     peer.on("open", id => {
-      console.log("Hi i'm user 1 with Id: " + id)
+      console.log("Hi i'm a user with Id: " + id)
       setUserOnePeerId(id)
     })
 
@@ -36,10 +34,8 @@ export const usePeerJSConnection = () => {
 
   return {
     userOnePeerId,
-    connectToPeerId,
     connect,
     host,
     getPeerConnection,
-    setConnectToPeerId,
   }
 }
