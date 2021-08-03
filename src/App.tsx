@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./App.css"
 import { PeerJS } from "./PeerJS"
-import { SimplePeer } from "./SimplePeer"
+import { SimplePeerDemo } from "./SimplePeer"
 
 function App() {
   const [isPeerJS, togglePeerFramework] = useState(true)
@@ -18,7 +18,7 @@ function App() {
         </button>
 
         {isPeerJS && <PeerJS />}
-        {!isPeerJS && <SimplePeer />}
+        {!isPeerJS && <SimplePeerDemo />}
       </header>
     </div>
   )

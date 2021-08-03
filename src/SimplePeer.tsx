@@ -1,36 +1,35 @@
-import Peer from "simple-peer"
+import { useState } from "react"
+import SimplePeer from "simple-peer"
+import { useSimplePeerConnection } from "./useSimplePeerConnection"
 
-export const SimplePeer = () => {
-  const initiateSimpleExample = () => {
-    const peer1 = new Peer({ initiator: true })
-    const peer2 = new Peer()
-
-    peer1.on("signal", data => {
-      // when peer1 has signaling data, give it to peer2 somehow
-      peer2.signal(data)
-    })
-
-    peer2.on("signal", data => {
-      // when peer2 has signaling data, give it to peer1 somehow
-      peer1.signal(data)
-    })
-
-    peer1.on("connect", () => {
-      // wait for 'connect' event before using the data channel
-      peer1.send("hey peer2, how is it going?")
-    })
-
-    peer2.on("data", data => {
-      // got a data channel message
-      console.log("got a message from peer1: " + data)
-    })
-  }
+export const SimplePeerDemo = () => {
+  const {
+    initiateSimplePeer,
+    ownPeerId,
+    otherPeerId,
+    setOtherPeerId,
+    connect,
+    send,
+  } = useSimplePeerConnection()
 
   return (
     <>
       <h1>Hello to my Simple Peer Demo!</h1>
 
-      <button onClick={initiateSimpleExample}>Initiate Simple Flow</button>
+      <button onClick={() => initiateSimplePeer(true)}>Initiator</button>
+
+      <button onClick={() => initiateSimplePeer(false)}>Receiver</button>
+
+      <p style={{ width: `80%` }}>Your PeerId: {JSON.stringify(ownPeerId)}</p>
+
+      <input
+        type="text"
+        value={otherPeerId}
+        onChange={event => setOtherPeerId(event.target.value)}
+      ></input>
+
+      <button onClick={connect}>connect!</button>
+      <button onClick={send}>Send!</button>
     </>
   )
 }
