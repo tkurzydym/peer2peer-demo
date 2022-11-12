@@ -1,5 +1,3 @@
-import { useState } from "react"
-import SimplePeer from "simple-peer"
 import { useSimplePeerConnection } from "./useSimplePeerConnection"
 
 export const SimplePeerDemo = () => {

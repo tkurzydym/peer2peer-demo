@@ -9,16 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button
-          onClick={() => {
-            togglePeerFramework(!isPeerJS)
-          }}
-        >
-          Toggle Peer Framework!
-        </button>
-
-        {isPeerJS && <PeerJS />}
-        {!isPeerJS && <SimplePeerDemo />}
+        <SimplePeerDemo />
       </header>
     </div>
   )
