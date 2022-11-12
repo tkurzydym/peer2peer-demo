@@ -2,7 +2,7 @@ import { useState } from "react"
 import { usePeerJSConnection } from "./usePeerJSConnection"
 
 export const PeerJS = () => {
-  const { userOnePeerId, connect, host, getPeerConnection } =
+  const { userOnePeerId, connect, host, getPeerConnection, call } =
     usePeerJSConnection()
 
   const [connectToId, setConnectToId] = useState("")
@@ -42,6 +42,16 @@ export const PeerJS = () => {
       >
         Connect!
       </button>
+
+      <button
+        onClick={() => {
+          call(getPeerConnection(), connectToId)
+        }}
+      >
+        Call!
+      </button>
+
+      <audio controls></audio>
     </>
   )
 }

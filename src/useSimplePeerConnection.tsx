@@ -7,6 +7,8 @@ export const useSimplePeerConnection = () => {
   const [peer, setPeer] = useState<any>()
 
   const initiateSimplePeer = (initiator: boolean) => {
+    console.log(navigator.mediaDevices.enumerateDevices())
+
     const ownPeer = new SimplePeer({
       initiator: initiator,
       trickle: false,
@@ -28,6 +30,7 @@ export const useSimplePeerConnection = () => {
       console.log("data: " + data)
     })
 
+    console.log(ownPeer)
     setPeer(ownPeer)
   }
 
@@ -36,10 +39,12 @@ export const useSimplePeerConnection = () => {
   }
 
   const send = () => {
+    console.log(peer)
     peer.send("My own Data!")
   }
 
   return {
+    peer,
     ownPeerId,
     otherPeerId,
     setOtherPeerId,

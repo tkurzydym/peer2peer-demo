@@ -1,7 +1,9 @@
 import { useSimplePeerConnection } from "./useSimplePeerConnection"
+import ReactJson from "react-json-view"
 
 export const SimplePeerDemo = () => {
   const {
+    peer,
     initiateSimplePeer,
     ownPeerId,
     otherPeerId,
@@ -14,18 +16,19 @@ export const SimplePeerDemo = () => {
     <>
       <h1>Hello to my Simple Peer Demo!</h1>
 
-      <button onClick={() => initiateSimplePeer(true)}>Initiator</button>
-
-      <button onClick={() => initiateSimplePeer(false)}>Receiver</button>
-
-      <p style={{ width: `80%` }}>Your PeerId: {JSON.stringify(ownPeerId)}</p>
-
+      <p style={{ width: `80%` }}>Current Peer: {JSON.stringify(peer)}</p>
+      {!ownPeerId && (
+        <>
+          <button onClick={() => initiateSimplePeer(true)}>Initiator</button>
+          <button onClick={() => initiateSimplePeer(false)}>Receiver</button>
+        </>
+      )}
+      <p style={{ width: `80%` }}>Current Peer: {JSON.stringify(ownPeerId)}</p>
       <input
         type="text"
         value={otherPeerId}
         onChange={event => setOtherPeerId(event.target.value)}
       ></input>
-
       <button onClick={connect}>connect!</button>
       <button onClick={send}>Send!</button>
     </>
