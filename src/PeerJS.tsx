@@ -2,8 +2,17 @@ import { useState } from "react"
 import { usePeerJSConnection } from "./usePeerJSConnection"
 
 export const PeerJS = () => {
-  const { userOnePeerId, connect, host, getPeerConnection, call } =
-    usePeerJSConnection()
+  const {
+    userOnePeerId,
+    otherPeerId,
+    connect,
+    host,
+    getPeerConnection,
+    call,
+    startMetronome,
+    stopMetronome,
+    startMetronomeNow,
+  } = usePeerJSConnection()
 
   const [connectToId, setConnectToId] = useState("")
 
@@ -24,7 +33,7 @@ export const PeerJS = () => {
       </button>
 
       <span>Your Connection Id: {userOnePeerId}</span>
-
+      <span>Other Connection Id: {otherPeerId}</span>
       <hr></hr>
 
       <div>
@@ -49,6 +58,30 @@ export const PeerJS = () => {
         }}
       >
         Call!
+      </button>
+
+      <button
+        onClick={() => {
+          startMetronome()
+        }}
+      >
+        Start Metronome!
+      </button>
+
+      <button
+        onClick={() => {
+          stopMetronome()
+        }}
+      >
+        Stop Metronome!
+      </button>
+
+      <button
+        onClick={() => {
+          startMetronomeNow()
+        }}
+      >
+        Immediate Metronome!
       </button>
 
       <audio controls></audio>
