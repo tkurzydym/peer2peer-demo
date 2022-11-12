@@ -66,8 +66,8 @@ export const Connector = () => {
     }
 
     const startTick = () => {
+        console.log('starting interval')
         setInterval(() => {
-            console.log('starting interval')
             peers.forEach(peer => {
                 const now = Date.now()
                 const event = {
@@ -77,7 +77,7 @@ export const Connector = () => {
                 console.log(`sending event ${event}`)
                 peer.send(event)  
             })
-        }, 1000)
+        }, 100)
     }
 
     return (
