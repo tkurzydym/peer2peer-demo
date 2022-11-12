@@ -20,7 +20,11 @@ export const usePeerJSConnection = () => {
         audio: true,
       })
       .then(stream => {
-        peer.call(idToCall, stream)
+        const call = peer.call(idToCall, stream)
+
+        call.on("stream", remoteStream => {
+          playStream(remoteStream)
+        })
       })
   }
 
@@ -46,13 +50,17 @@ export const usePeerJSConnection = () => {
           console.log("answering call")
           call.answer(stream) // Answer the call with an A/V stream.
           call.on("stream", remoteStream => {
-            console.log(remoteStream)
-            const audioEl = document.getElementsByTagName("audio")[0]
-            audioEl.srcObject = remoteStream
-            audioEl.play()
+            playStream(remoteStream)
           })
         })
     })
+  }
+
+  const playStream = (remoteStream: MediaStream) => {
+    console.log(remoteStream)
+    const audioEl = document.getElementsByTagName("audio")[0]
+    audioEl.srcObject = remoteStream
+    audioEl.play()
   }
 
   const getPeerConnection = (): Peer => {
